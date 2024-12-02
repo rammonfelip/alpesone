@@ -29,37 +29,50 @@ class UpdateVeiculos extends Command
      */
     public function handle()
     {
-        $provider = 'https://brasilapi.com.br/api/ibge/municipios/v1/PB';//config('provider.api.alpesone');
-        $response = Http::get($provider);
-        $content = $response->json();
-        $contentHash = md5(json_encode($content));
+        try {
+            $provider = config('provider.api.alpesone');
+            $response = Http::get($provider);
 
-        if (Cache::has('veiculos') && Cache::get('veiculos') == $contentHash) {
-            return 'Registros atualizados';
-        }
-
-        $fileName = "alpesone.json";
-
-        Cache::put('veiculos', md5(json_encode($content)));
-        Storage::put($fileName, $content);
-        $file = Storage::get($fileName);
-
-        $data = [];
-
-        foreach (json_decode($file) as $veiculo) {
-            foreach ($veiculo as $key => $value) {
-                if (is_array($value) || is_object($value)) {
-                    $data[$key] = json_encode($value);
-                } else {
-                    $data[$key] = $value;
-                }
+            if ($response->failed()) {
+                $this->error('Falha ao acessar a API.');
+                return;
             }
 
-            Veiculo::updateOrCreate([
-                'id' => $data['id']
-            ], $data);
-        }
+            $content = $response->json();
+            $contentHash = md5(json_encode($content));
 
-        return 'Registros armazenados';
+            if (Cache::has('veiculos') && Cache::get('veiculos') == $contentHash) {
+                $this->info('Nenhuma alteração nos registros.');
+                return;
+            }
+
+            $fileName = "veiculos.json";
+
+            Cache::put('veiculos', $contentHash);
+
+            Storage::put($fileName, json_encode($content));
+
+            $file = Storage::get($fileName);
+            $data = [];
+
+            foreach (json_decode($file) as $veiculo) {
+                foreach ($veiculo as $key => $value) {
+                    if (is_array($value) || is_object($value)) {
+                        $data[$key] = json_encode($value);
+                    } else {
+                        $data[$key] = $value;
+                    }
+                }
+
+                Veiculo::updateOrCreate(
+                    ['id' => $data['id']],
+                    $data
+                );
+            }
+
+            $this->info('Registros armazenados e atualizados.');
+        } catch (\Throwable $th) {
+            $this->error("Erro: {$th->getMessage()}");
+        }
     }
 }

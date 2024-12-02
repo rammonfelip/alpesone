@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use App\Console\Commands\UpdateVeiculos;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('veiculos:update', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Verificando e atualizando registros')->hourly();
+Schedule::command(UpdateVeiculos::class)->hourly();
