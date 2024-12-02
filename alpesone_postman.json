@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "f3ce2bbb-7cde-4ddf-94fb-725202d2a133",
+		"name": "alpesone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9572536"
+	},
+	"item": [
+		{
+			"name": "Listar Veículos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/veiculos",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"veiculos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salvar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"carro\",\n  \"brand\": \"Ford\",\n  \"model\": \"Ecosport\",\n  \"version\": \"Ecosport FreeStyle 1.5 12V Flex Aut.\",\n  \"year\": {\n    \"model\": \"2023\",\n    \"build\": \"2022\"\n  },\n  \"optionals\": [\"Ar Condicionado\", \"Controle de Tração\", \"Airbag\", \"Câmera de Ré\"],\n  \"doors\": 4,\n  \"board\": \"ABC1D23\",\n  \"chassi\": \"3FAHP0HA6AR123456\",\n  \"transmission\": \"Automática\",\n  \"km\": 4500,\n  \"description\": \"Carro seminovo\",\n  \"created\": \"2024-11-30 12:45:00\",\n  \"updated\": \"2024-11-30 12:45:00\",\n  \"sold\": false,\n  \"category\": \"SUV\",\n  \"old_price\": 110000.00,\n  \"price\": 105000.00,\n  \"color\": \"Preto\",\n  \"fuel\": \"Flex\",\n  \"fotos\": [\n    \"https://example.com/uploads/veiculos/ford-ecosport-1.jpg\",\n    \"https://example.com/uploads/veiculos/ford-ecosport-2.jpg\",\n    \"https://example.com/uploads/veiculos/ford-ecosport-3.jpg\"\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/veiculos",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"veiculos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Visualizar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/veiculos/100568",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"veiculos",
+						"100568"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"moto\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/veiculos/100568",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"veiculos",
+						"100568"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "moto",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"moto\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/veiculos/105864",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"veiculos",
+						"105864"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "moto",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8080/api/v1",
+			"type": "string"
+		}
+	]
+}
