@@ -10,4 +10,10 @@ class Veiculo extends Model
         'id', 'type', 'brand', 'model', 'version', 'year', 'optionals', 'doors', 'board', 'chassi', 'transmission', 'km',
         'description', 'created', 'updated', 'sold', 'category', 'url_car', 'old_price', 'price', 'color', 'fuel', 'fotos',
     ];
+
+    protected $casts = [
+        'fotos' => 'json',
+        'year' => 'json',
+        'optionals' => 'json',
+    ];
 }

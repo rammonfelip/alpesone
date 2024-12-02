@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return 'api';
+Route::group(['prefix' => 'v1'], function () {
+    Route::apiResource('veiculos', \App\Http\Controllers\VeiculoController::class);
 });
